@@ -40,8 +40,8 @@ build/output.yaml: template.yaml build/layer.zip
 	aws cloudformation package --template $< --s3-bucket $(DEPLOYMENT_BUCKET) --output-template-file $@
 
 deploy: build/output.yaml
-	aws cloudformation deploy --template $< --stack-name $(STACK_NAME)
-	aws cloudformation describe-stacks --stack-name $(STACK_NAME) --query Stacks[].Outputs --output table
+	aws cloudformation deploy --template $< --stack-name $(STACK_NAME) --region us-east-2
+	aws cloudformation describe-stacks --stack-name $(STACK_NAME) --query Stacks[].Outputs --output table --region us-east-2
 
 deploy-example: deploy
 	cd example && \
